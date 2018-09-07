@@ -1,15 +1,19 @@
-ï»¿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="index.aspx.cs" Inherits="index" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="index.aspx.cs" Inherits="index" %>
 
 <!DOCTYPE html>
 <html>
   <head>
+     
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>AiMZone</title>
+      <meta content="text/html; charset=iso-8859-2" http-equiv="Content-Type">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
     <!-- Bootstrap CSS-->
+      <link rel="stylesheet" href="css/advslidespranav.css" />
     <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome CSS-->
     <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
@@ -37,6 +41,12 @@
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+.mySlides {display:none;}
+</style>
   </head>
   <body>
       <form id="aspform1" runat="server">
@@ -80,7 +90,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h4 id="login-modalLabel" class="modal-title">Customer Login</h4>
-              <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">Ã—</span></button>
+              <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
             </div>
             <div class="modal-body">
               <div >
@@ -100,7 +110,7 @@
               </div>
                 
               <p class="text-center text-muted">Not registered yet?</p>
-              <p class="text-center text-muted"><a href="customer-register.aspx"><strong>Register now</strong></a>! It is easy and done in 1Â minute and gives you access to special discounts and much more!</p>
+              <p class="text-center text-muted"><a href="customer-register.aspx"><strong>Register now</strong></a>! It is easy and done in 1 minute and gives you access to special discounts and much more!</p>
             </div>
           </div>
         </div>
@@ -140,49 +150,71 @@
                 
                
                     <!--  <asp:AdRotator   ID="AdRotator1" runat="server" AdvertisementFile="Text.xml" height="100" Width="100%" />--->
-               <div class="container">
-  
-  <div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner row w-100 mx-auto">
-      <div class="carousel-item col-md-4 active">
-        <div class="card">
-          <img class="card-img-top img-fluid" src="AdvImage/Swayamvara.jpg" alt="Card image cap">
+         
           
-        </div>
-      </div>
-      <div class="carousel-item col-md-4">
-        <div class="card">
-          <img class="card-img-top img-fluid" src="AdvImage/Fashion 12x6x1.jpg" alt="Card image cap">
           
-        </div>
-      </div>
-     
-         <div class="carousel-item col-md-4">
-        <div class="card">
-          <img class="card-img-top img-fluid" src="AdvImage/minagold.jpg" alt="Card image cap">
-          
-        </div>
-      </div>
-        <div class="carousel-item col-md-4">
-        <div class="card">
-          <img class="card-img-top img-fluid" src="AdvImage/saveco.png" alt="Card image cap">
-          
-        </div>
-      </div>
-       
-    <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
+          <div class="slideshow-container">
+
+  <!-- Full-width images with number and caption text -->
+   <asp:Repeater ID="repeatercard" runat="server">
+                           <ItemTemplate>
+                                 <div class="mySlides fade">
+    <img src="<%# Eval("Advimgloc") %>"  height="200px" width="100%"  >
+
+ 
   </div>
+                              </ItemTemplate>
+                            
+                       </asp:Repeater> 
+
+ 
+
+  
+
+  <!-- Next and previous buttons -->
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+<br>
+
+<!-- The dots/circles -->
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span> 
+  <span class="dot" onclick="currentSlide(2)"></span> 
+  <span class="dot" onclick="currentSlide(3)"></span> 
 </div>
           
           
-              
+          
+          
+          
+          
+          
+          
+          
+       
+          
+          
+          
+          
+          
+          <%-- <table class="table">
+  <thead>
+    <tr><td >
+        
+      </td></tr>
+  </thead>
+                 </table>--%>
+
+
+
+
+
+                
+
+
+  
+         
       <div class="container ">
            <div runat="server" id="failedlogin_div" class="alert alert-success">
   <strong>Error!</strong> Login Failed
@@ -354,11 +386,17 @@
                 <div class="box-header mt-0">
                   <h3>Featured Ads</h3>
                 </div>
-                   <div class="table-responsive mt-2"><img src="AdvImage/Swayamvara.jpg" alt="" class="img-fluid"/> </div>
-                  <div class="table-responsive mt-2"><img  src="AdvImage/minagold.jpg" alt="" class="img-fluid"/> </div>
+
+                  <asp:Repeater ID="repeaterfeatuedads" runat="server">
+                      <ItemTemplate>
+                                                 <div class="table-responsive mt-2"><img src="<%# Eval("Advimgloc") %>" alt="" class="img-fluid"/> </div>
+                      </ItemTemplate>
+                  </asp:Repeater>
+                  
+                 <!-- <div class="table-responsive mt-2"><img  src="AdvImage/minagold.jpg" alt="" class="img-fluid"/> </div>
                   <div class="table-responsive mt-2"><img src="AdvImage/Fashion 12x6x1.jpg" alt="" class="img-fluid"/> </div>
                   <div class="table-responsive mt-2"><img src="AdvImage/saveco.png" alt="" class="img-fluid"/> </div>
-                <div class="table-responsive mt-2"><img src="img/JKADV1FEATURED.jpg" alt="" class="img-fluid"/> </div>
+                <div class="table-responsive mt-2"><img src="img/JKADV1FEATURED.jpg" alt="" class="img-fluid"/> </div>-->
                    
                 
               </div>
@@ -459,5 +497,6 @@
     <script src="vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
     <script src="vendor/jquery.scrollto/jquery.scrollTo.min.js"></script>
     <script src="js/front.js"></script>
+     <script src="js/advslidespranav.js"></script>
   </body>
 </html>

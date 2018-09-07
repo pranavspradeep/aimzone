@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -20,6 +22,7 @@ public partial class index : System.Web.UI.Page
             emptyfielderrordiv.Visible = false;
             failedlogin_div.Visible = false;
             fillineeddrop();
+            fetchalladv();
         }
 
        
@@ -82,11 +85,66 @@ public partial class index : System.Web.UI.Page
         filllocationdrop();
     }
 
+    public void fetchalladv()
+    {
+        string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+        SqlConnection con = new SqlConnection(connectionString);
+        con.Open();
+        SqlCommand cmd = new SqlCommand("Fetch_adv_all", con);
+        cmd.CommandType = CommandType.StoredProcedure;
+        //cmd.Parameters.AddWithValue("@state", state);
+       // cmd.Parameters.AddWithValue("@dist", district);
+
+        SqlDataReader rdr = cmd.ExecuteReader();
+        DataTable dt = new DataTable();
+        dt.Load(rdr);
+      repeatercard.DataSource = dt;
+       repeatercard.DataBind();
+        repeaterfeatuedads.DataSource = dt;
+        repeaterfeatuedads.DataBind();
+
+
+
+
+    }
+
+
+
+
+
+
+
+    public void fetchlocationbasedads(string state, string district)
+    {
+        string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+        SqlConnection con = new SqlConnection(connectionString);
+        con.Open();
+        SqlCommand cmd = new SqlCommand("Fetch_adv_basedon_location", con);
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@state", state);
+        cmd.Parameters.AddWithValue("@dist", district);
+
+        SqlDataReader rdr = cmd.ExecuteReader();
+        DataTable dt = new DataTable();
+        dt.Load(rdr);
+        repeatercard.DataSource = dt;
+        repeatercard.DataBind();
+        repeaterfeatuedads.DataSource = dt;
+        repeaterfeatuedads.DataBind();
+
+
+
+
+    }
 
 
     protected void location_drp_SelectedIndexChanged(object sender, EventArgs e)
     {
         fillineeddrop();
+        fetchlocationbasedads(state_drp.Text,location_drp.Text);
+ 
+
+        
     }
 
     protected void getbestdeal_btn_Click(object sender, EventArgs e)
